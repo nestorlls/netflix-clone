@@ -13,9 +13,17 @@
     "vite": "^4.4.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "@vitejs/plugin-react": "4.0.2",
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "firebase": "^9.23.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.10.1",
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.14.1",
+    "styled-components": "^6.0.2"
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
