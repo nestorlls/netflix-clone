@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginLayout from '../../components/Layouts/LoginLayout/LoginLayout';
 import LoginWrapper from './ui-Login';
 import Flied from '../../components/Field/Flied';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../../services/auth-service';
+import useUser from '../../hooks/useUser';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +32,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginData);
+    login(loginData);
   };
 
   return (
