@@ -1,7 +1,10 @@
 import LoginLayout from '../../components/Layouts/LoginLayout/LoginLayout';
 import Field from '../../components/Field/Flied';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SignupWrapper from './ui-Signup';
+import { createUser } from '../../services/auth-service';
+import { useNavigate } from 'react-router-dom';
+import useUser from '../../hooks/useUser';
 
 const Signup = () => {
   const [showInpPassword, setShowInpPassword] = useState(false);
@@ -9,6 +12,16 @@ const Signup = () => {
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   const handleShowInpPassword = () => {
     setShowInpPassword(!showInpPassword);
@@ -24,7 +37,7 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(signupData);
+    createUser(signupData);
   };
 
   return (
@@ -46,7 +59,7 @@ const Signup = () => {
                   <Field
                     name="email"
                     placeholder="Email address"
-                    type="text"
+                    type="email"
                     onChange={handleChange}
                   />
                   {showInpPassword ? (
