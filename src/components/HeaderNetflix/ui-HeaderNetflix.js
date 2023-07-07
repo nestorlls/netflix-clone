@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-const HeaderNetflixWrapper = styled.div`
+const HeaderNetflixWrapper = styled.header`
   width: 100%;
   position: sticky;
   position: fixed;
