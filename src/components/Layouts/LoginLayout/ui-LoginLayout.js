@@ -10,7 +10,7 @@ const LoginLayoutWrapper = styled.div`
     background-image: url(${bgimg});
     background-size: cover;
     background-repeat: no-repeat;
-    opacity: 0.5;
+    opacity: 0.3;
   }
 
   .container {
