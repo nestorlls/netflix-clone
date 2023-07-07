@@ -1,5 +1,5 @@
 import LoginLayout from '../../components/Layouts/LoginLayout/LoginLayout';
-import Field from '../../components/Field/Flied';
+import Field from '../../components/Field/Field';
 import { useEffect, useState } from 'react';
 import SignupWrapper from './ui-Signup';
 import { createUser } from '../../services/auth-service';
