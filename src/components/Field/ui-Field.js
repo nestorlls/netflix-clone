@@ -4,6 +4,7 @@ const FieldWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  width: 100%;
 
   .input {
     width: 100%;
