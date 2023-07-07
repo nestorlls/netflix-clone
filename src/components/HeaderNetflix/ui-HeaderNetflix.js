@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 const HeaderNetflixWrapper = styled.div`
   width: 100%;
   position: sticky;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: fixed;
 
   .scrolled {
