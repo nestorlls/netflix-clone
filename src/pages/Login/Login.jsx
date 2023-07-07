@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoginLayout from '../../components/Layouts/LoginLayout/LoginLayout';
 import LoginWrapper from './ui-Login';
-import Flied from '../../components/Field/Flied';
+import Flied from '../../components/Field/Field';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../services/auth-service';
 import useUser from '../../hooks/useUser';
