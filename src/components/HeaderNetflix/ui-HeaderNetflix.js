@@ -4,6 +4,7 @@ const HeaderNetflixWrapper = styled.header`
   width: 100%;
   position: sticky;
   position: fixed;
+  z-index: 10;
 
   .scrolled {
     background-color: black;
