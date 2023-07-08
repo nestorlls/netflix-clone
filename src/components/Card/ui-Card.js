@@ -1,7 +1,8 @@
 import { styled } from 'styled-components';
+import { device } from '../../utils/MediaQuerys';
 
 const CardWrapper = styled.div`
-  gap: 2rem;
+  gap: 3rem;
   min-width: 250px;
   width: 250px;
   height: 100%;
@@ -10,6 +11,7 @@ const CardWrapper = styled.div`
   .image-card {
     width: 100%;
     height: 100%;
+    transition: 0.3s ease-in-out;
 
     img {
       cursor: pointer;
@@ -20,11 +22,12 @@ const CardWrapper = styled.div`
 
     &:hover {
       border: 1px solid white;
+      transform: scale(1.05);
     }
   }
   .hover {
     position: absolute;
-    top: -18vh;
+    top: -25vh;
     left: 0;
     width: 20rem;
     height: max-content;
@@ -77,6 +80,12 @@ const CardWrapper = styled.div`
         background-color: rgba(255, 255, 255, 0.2);
         border-radius: 0.2rem;
       }
+    }
+  }
+
+  @media ${device.desktop} {
+    .hover {
+      top: -18vh;
     }
   }
 `;
