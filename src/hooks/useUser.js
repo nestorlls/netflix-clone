@@ -6,17 +6,15 @@ const useUser = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const getUser = setTimeout(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (!user) return;
-        else setUser(user);
-      });
+    onAuthStateChanged(auth, (user) => {
+      if (!user) return;
+      else setUser(user);
     });
 
     return () => {
       clearTimeout(getUser);
     };
-  }, [user]);
+  }, []);
 
   return { user };
 };
