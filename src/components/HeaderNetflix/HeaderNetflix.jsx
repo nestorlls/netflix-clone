@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaPowerOff, FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
 import useScroll from '../../hooks/useScroll';
+import { logout } from '../../services/auth-service';
 
 const navigation = [
   { name: 'Home', path: '/' },
@@ -65,7 +66,7 @@ const HeaderNetflix = () => {
               />
             </div>
             <button className="btn-logout">
-              <FaPowerOff />
+              <FaPowerOff onClick={logout} />
             </button>
           </div>
         </nav>
