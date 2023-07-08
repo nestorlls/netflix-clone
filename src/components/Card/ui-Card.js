@@ -27,7 +27,7 @@ const CardWrapper = styled.div`
   }
   .hover {
     position: absolute;
-    top: -25vh;
+    top: -18vh;
     left: 0;
     width: 20rem;
     height: max-content;
