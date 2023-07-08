@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import HomeWrapper from './ui-Home';
 import NetflixLayout from '../../components/Layouts/NetflixLayout/NetflixLayout';
-import bgImg from '../../assets/home.jpg';
 import movielogo from '../../assets/homeTitle.webp';
 import Slider from '../../components/Slider/Slider';
-import {
-  apiFetchGenres,
-  apiFetchMovieByGenre,
-  apifetchData,
-} from '../../services/movie-services';
+import { apiFetchGenres, apifetchData } from '../../services/movie-services';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const isLoaded = useSelector((state) => state.netflix.genresLoaded);
-  const genres = useSelector((state) => state.netflix.genres);
   const movies = useSelector((state) => state.netflix.movies);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const handleNavigate = () => {
+    navigate('/player');
+  };
   useEffect(() => {
     dispatch(apiFetchGenres());
   }, []);
@@ -31,8 +30,6 @@ const Home = () => {
     };
   }, [isLoaded]);
 
-  console.log(movies);
-
   return (
     <NetflixLayout>
       <HomeWrapper>
@@ -41,15 +38,15 @@ const Home = () => {
           <div className="home-content flex column">
             <img src={movielogo} alt="movie logo" />
             <div className="buttons flex">
-              <button>Play</button>
+              <button onClick={handleNavigate}>Play</button>
               <button>More Info</button>
             </div>
           </div>
         </div>
-        <Slider movies={movies} />
+        {movies.length > 0 && <Slider movies={movies} />}
       </HomeWrapper>
     </NetflixLayout>
   );
 };
 
-export default Home;
+export default memo(Home);
