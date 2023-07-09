@@ -54,21 +54,16 @@ const apiFetchGenres = createAsyncThunk('netflix/genres', async () => {
 });
 
 const apiFetchMovieByGenre = createAsyncThunk(
-  'netflix/genres',
-  async ({ type, genre }) => {
-    const movieArrayByGenre = [];
+  'netflix/byGenre',
+  async ({ type, genre }, thunkApi) => {
+    const { netflix } = thunkApi.getState();
+    const genres = netflix.genres;
 
-    for (let page = 1; page <= 5; page++) {
-      const response = axios.get(
-        `${TMBD_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`
-      );
+    const url = `${TMBD_BASE_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${genre}`;
 
-      const { data } = await response;
-      const { results } = await data;
-      movieArrayByGenre.push(...results);
-    }
+    const data = await getRawData(url, genres);
 
-    return movieArrayByGenre;
+    return data;
   }
 );
 
