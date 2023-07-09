@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import SelectGenreWrapper from './ui-SelectGenre';
 import { apiFetchMovieByGenre } from '../../services/movie-services';
+import { useEffect } from 'react';
 
 const SelectGenre = ({ genres, type }) => {
   const dispatch = useDispatch();
@@ -10,8 +11,13 @@ const SelectGenre = ({ genres, type }) => {
     dispatch(apiFetchMovieByGenre({ type, genre: value }));
   };
 
+  useEffect(() => {
+    handleChange({ target: { value: type } });
+  }, []);
+
   return (
     <SelectGenreWrapper onChange={handleChange}>
+      <option>Select</option>
       {genres.map(({ id, name }, idx) => (
         <option key={idx} value={id}>
           {name}
