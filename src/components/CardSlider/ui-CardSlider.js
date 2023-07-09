@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 const CardSliderWrapper = styled.div`
-  gap: 2rem;
+  gap: 1.4rem;
 
   .title-slider {
     font-size: clamp(1.4rem, 2.5vw, 1.8rem);

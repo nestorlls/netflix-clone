@@ -15,7 +15,7 @@ const Slider = ({ movies }) => {
   const epics = getSliceMovies(movies, 80, 100);
 
   return (
-    <SliderWrapper>
+    <SliderWrapper className="flex column">
       {trendingNow.length > 0 && (
         <CardSlider title="Trending Now" movies={trendingNow} />
       )}
