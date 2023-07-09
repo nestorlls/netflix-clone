@@ -16,12 +16,22 @@ const Slider = ({ movies }) => {
 
   return (
     <SliderWrapper>
-      <CardSlider title="Trending Now" movies={trendingNow} />
-      <CardSlider title="New Releases" movies={newRelease} />
-      <CardSlider title="Blockbuster " movies={blockbuster} />
-      <CardSlider title="Popular Netflix" movies={populatOnNetflix} />
-      <CardSlider title="Action Movies" movies={actionMovies} />
-      <CardSlider title="Epic" movies={epics} />
+      {trendingNow.length > 0 && (
+        <CardSlider title="Trending Now" movies={trendingNow} />
+      )}
+      {newRelease.length > 0 && (
+        <CardSlider title="New Releases" movies={newRelease} />
+      )}
+      {blockbuster.length > 0 && (
+        <CardSlider title="Blockbuster " movies={blockbuster} />
+      )}
+      {populatOnNetflix.length > 0 && (
+        <CardSlider title="Popular Netflix" movies={populatOnNetflix} />
+      )}
+      {actionMovies.length > 0 && (
+        <CardSlider title="Action Movies" movies={actionMovies} />
+      )}
+      {epics.length > 0 && <CardSlider title="Epic" movies={epics} />}
     </SliderWrapper>
   );
 };
