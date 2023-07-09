@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import HomeWrapper from './ui-Home';
 import NetflixLayout from '../../components/Layouts/NetflixLayout/NetflixLayout';
 import movielogo from '../../assets/homeTitle.webp';
@@ -6,6 +6,7 @@ import Slider from '../../components/Slider/Slider';
 import { apiFetchGenres, apifetchData } from '../../services/movie-services';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import SliderLoading from '../../components/SliderLoading/SliderLoading';
 
 const Home = () => {
   const isLoaded = useSelector((state) => state.netflix.genresLoaded);
@@ -43,7 +44,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {movies.length > 0 && <Slider movies={movies} />}
+        {movies.length === 0 ? <SliderLoading /> : <Slider movies={movies} />}
       </HomeWrapper>
     </NetflixLayout>
   );
