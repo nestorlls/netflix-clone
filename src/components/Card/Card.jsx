@@ -4,7 +4,7 @@ import { IoPlayCircleSharp } from 'react-icons/io5';
 import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
 import { BsCheck } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import video from '../../assets/video.mp4';
 import { useNavigate } from 'react-router-dom';
@@ -25,9 +25,11 @@ const Card = ({ movie, isLiked = false }) => {
     navigate('/player');
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) setCurrentUser(user.email);
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) setCurrentUser(user.email);
+    });
+  }, []);
 
   const handleAddToList = async () => {
     if (currentUser) {
