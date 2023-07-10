@@ -1,4 +1,4 @@
-import { TMBD_IMAGE_URL } from '../../utils/constanst';
+import { NETFLIX_URL_API, TMBD_IMAGE_URL } from '../../utils/constanst';
 import CardWrapper from './ui-Card';
 import { IoPlayCircleSharp } from 'react-icons/io5';
 import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
@@ -8,10 +8,14 @@ import { memo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import video from '../../assets/video.mp4';
 import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../utils/firebase-config';
+import axios from 'axios';
 
 const Card = ({ movie, isLiked = false }) => {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleHover = () => {
     setIsHover(!isHover);
@@ -19,6 +23,24 @@ const Card = ({ movie, isLiked = false }) => {
 
   const handleNavigate = () => {
     navigate('/player');
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) setCurrentUser(user.email);
+  });
+
+  const handleAddToList = async () => {
+    if (currentUser) {
+      const url = `${NETFLIX_URL_API}/api/user/add`;
+      try {
+        await axios.post(url, {
+          email: currentUser,
+          data: movie,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -49,7 +71,10 @@ const Card = ({ movie, isLiked = false }) => {
               {isLiked ? (
                 <BsCheck title="remove from List" />
               ) : (
-                <AiOutlinePlus title="add to my List" />
+                <AiOutlinePlus
+                  title="add to my List"
+                  onClick={handleAddToList}
+                />
               )}
               <BiChevronDown title="more Info" />
             </div>
