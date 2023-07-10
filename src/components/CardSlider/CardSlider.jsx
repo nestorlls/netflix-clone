@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Card from '../Card/Card';
 import SliderAction from '../SliderAction/SliderAction';
 import CardSliderWrapper from './ui-CardSlider';
@@ -28,6 +28,16 @@ const CardSlider = ({ title, movies }) => {
       setSliderPosition(sliderPosition + 1);
     }
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      setSliderPosition(0);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <CardSliderWrapper
