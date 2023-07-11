@@ -3,7 +3,7 @@ import NetflixLayout from '../../components/Layouts/NetflixLayout/NetflixLayout'
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { auth } from '../../utils/firebase-config';
-import getMyList from '../../services/myList-services';
+import { getMyList } from '../../services/myList-services';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '../../components/Card/Card';
 
