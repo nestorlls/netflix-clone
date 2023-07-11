@@ -11,11 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../utils/firebase-config';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { removeMovieFromMyList } from '../../services/myList-services';
 
 const Card = ({ movie, isLiked = false }) => {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const dispatch = useDispatch();
 
   const handleHover = () => {
     setIsHover(!isHover);
@@ -45,6 +48,14 @@ const Card = ({ movie, isLiked = false }) => {
     }
   };
 
+  const handleRemoveFromList = async () => {
+    if (currentUser) {
+      dispatch(
+        removeMovieFromMyList({ email: currentUser, movieId: movie.id })
+      );
+    }
+  };
+
   return (
     <CardWrapper onMouseEnter={handleHover} onMouseLeave={handleHover}>
       <div className="image-card flex">
@@ -71,7 +82,10 @@ const Card = ({ movie, isLiked = false }) => {
               <RiThumbUpFill title="like" />
               <RiThumbDownFill title="dislike" />
               {isLiked ? (
-                <BsCheck title="remove from List" />
+                <BsCheck
+                  title="remove from List"
+                  onClick={handleRemoveFromList}
+                />
               ) : (
                 <AiOutlinePlus
                   title="add to my List"
