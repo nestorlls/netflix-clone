@@ -4,7 +4,10 @@ import {
   apiFetchMovieByGenre,
   apifetchData,
 } from '../../services/movie-services';
-import getMyList from '../../services/myList-services';
+import {
+  getMyList,
+  removeMovieFromMyList,
+} from '../../services/myList-services';
 
 const initialState = {
   movies: [],
@@ -31,6 +34,11 @@ const NetflixSlice = createSlice({
     });
 
     builder.addCase(getMyList.fulfilled, (state, action) => {
+      state.myList = action.payload;
+    });
+
+    builder.addCase(removeMovieFromMyList.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.myList = action.payload;
     });
   },
