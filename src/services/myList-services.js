@@ -8,4 +8,14 @@ const getMyList = createAsyncThunk('netflix/getMyList', async (email) => {
   return data.movies;
 });
 
-export default getMyList;
+const removeMovieFromMyList = createAsyncThunk(
+  'netflix/removeMovieFromMyList',
+  async ({ email, movieId }) => {
+    const url = `${NETFLIX_URL_API}/api/user/remove`;
+    const { data } = await axios.put(url, { email, movieId });
+    console.log(data.movies);
+    return data.movies;
+  }
+);
+
+export { getMyList, removeMovieFromMyList };
