@@ -79,4 +79,31 @@ const searchMovies = createAsyncThunk(
   }
 );
 
-export { apifetchData, apiFetchGenres, apiFetchMovieByGenre, searchMovies };
+const getInfoMovie = createAsyncThunk('netflix/info', async ({ type, id }) => {
+  const url = `${TMBD_BASE_URL}/${type}/${id}?api_key=${API_KEY}`;
+  const { data } = await axios.get(url);
+
+  console.log(data);
+
+  const info = {
+    movieId: data.id,
+    name: data.original_title || data.original_name,
+    title: data.title,
+    tagline: data.tagline,
+    genres: data.genres.map((genre) => genre.name),
+    image: data.backdrop_path,
+    overview: data.overview,
+    vote_rating: data.vote_average,
+    vote_count: data.vote_count,
+  };
+
+  return info;
+});
+
+export {
+  apifetchData,
+  apiFetchGenres,
+  apiFetchMovieByGenre,
+  searchMovies,
+  getInfoMovie,
+};
