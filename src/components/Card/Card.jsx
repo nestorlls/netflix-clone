@@ -7,18 +7,20 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { memo, useEffect, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import video from '../../assets/video.mp4';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../utils/firebase-config';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { removeMovieFromMyList } from '../../services/myList-services';
+import { getInfoMovie } from '../../services/movie-services';
 
 const Card = ({ movie, isLiked = false }) => {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const handleHover = () => {
     setIsHover(!isHover);
@@ -54,6 +56,15 @@ const Card = ({ movie, isLiked = false }) => {
         removeMovieFromMyList({ email: currentUser, movieId: movie.id })
       );
     }
+  };
+
+  const handleMoreInfo = () => {
+    navigate(`/${movie.id}`);
+    const { id } = movie;
+    const type =
+      (pathname === '/' && 'movie') || (pathname === '/tv' && 'tv') || 'movie';
+
+    dispatch(getInfoMovie({ type, id }));
   };
 
   return (
@@ -92,7 +103,7 @@ const Card = ({ movie, isLiked = false }) => {
                   onClick={handleAddToList}
                 />
               )}
-              <BiChevronDown title="more Info" />
+              <BiChevronDown title="more Info" onClick={handleMoreInfo} />
             </div>
           </div>
           <div className="genres-box flex">
