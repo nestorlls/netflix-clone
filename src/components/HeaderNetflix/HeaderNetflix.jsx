@@ -1,10 +1,12 @@
 import HeaderNetflixWrapper from './ui-HeaderNetflix';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaPowerOff, FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
 import useScroll from '../../hooks/useScroll';
 import { logout } from '../../services/auth-service';
+import { useDispatch } from 'react-redux';
+import { searchMovies } from '../../services/movie-services';
 
 const navigation = [
   { name: 'Home', path: '/' },
@@ -16,8 +18,28 @@ const navigation = [
 const HeaderNetflix = () => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [inputHover, setInputHover] = useState(false);
+  const [query, setQuery] = useState('');
+
+  const { pathname } = useLocation();
 
   const { isScrolled } = useScroll();
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setQuery(value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const type =
+      (pathname === '/' && 'collection') ||
+      (pathname === '/tv' && 'tv') ||
+      'movie';
+
+    dispatch(searchMovies({ type, query }));
+    setQuery('');
+  };
 
   const handleShowSearchInput = () => {
     setShowSearchInput(!showSearchInput);
@@ -46,25 +68,31 @@ const HeaderNetflix = () => {
             </ul>
           </div>
           <div className="right flex a-center">
-            <div
-              className={`search flex a-center ${
-                showSearchInput && 'show-search'
-              }`}>
-              <button className="btn-search" onClick={handleShowSearchInput}>
-                <FaSearch />
-              </button>
-              <input
-                type="text"
-                placeholder="Search"
-                className="input-search"
-                onMouseEnter={handleInputHover}
-                onMouseLeave={handleInputHover}
-                onBlur={() => {
-                  setInputHover(false);
-                  setShowSearchInput(false);
-                }}
-              />
-            </div>
+            {pathname !== '/mylist' && (
+              <div
+                className={`search flex a-center ${
+                  showSearchInput && 'show-search'
+                }`}>
+                <button className="btn-search" onClick={handleShowSearchInput}>
+                  <FaSearch />
+                </button>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="input-search"
+                    value={query}
+                    onMouseEnter={handleInputHover}
+                    onMouseLeave={handleInputHover}
+                    onChange={handleChange}
+                    onBlur={() => {
+                      setInputHover(false);
+                      setShowSearchInput(false);
+                    }}
+                  />
+                </form>
+              </div>
+            )}
             <button className="btn-logout">
               <FaPowerOff onClick={logout} />
             </button>
