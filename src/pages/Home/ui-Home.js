@@ -6,7 +6,7 @@ const HomeWrapper = styled.div`
   height: 100%;
 
   .bgImageMovie {
-    height: 70vh;
+    height: 100vh;
     width: 100%;
     background-image: url(${bgImgMovie});
     background-size: cover;
@@ -20,7 +20,7 @@ const HomeWrapper = styled.div`
 
   .home-container {
     position: relative;
-    height: 60vh;
+    height: 90vh;
 
     .home-content {
       align-items: self-start;
