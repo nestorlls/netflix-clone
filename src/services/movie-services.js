@@ -67,4 +67,16 @@ const apiFetchMovieByGenre = createAsyncThunk(
   }
 );
 
-export { apifetchData, apiFetchGenres, apiFetchMovieByGenre };
+const searchMovies = createAsyncThunk(
+  'netflix/search',
+  async ({ type, query }, thunkApi) => {
+    const { netflix } = thunkApi.getState();
+    const genres = netflix.genres;
+
+    const url = `${TMBD_BASE_URL}/search/${type}?api_key=${API_KEY}&language=en-US&query=${query}`;
+    const data = await getRawData(url, genres);
+    return data;
+  }
+);
+
+export { apifetchData, apiFetchGenres, apiFetchMovieByGenre, searchMovies };
