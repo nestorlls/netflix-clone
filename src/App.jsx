@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Info from './pages/Info/Info';
 const Loading = lazy(() => import('./components/Loading/Loading'));
 const Login = lazy(() => import('./pages/Login/Login'));
 const Signup = lazy(() => import('./pages/Signup/Signup'));
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/tv" element={<TvShow />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/mylist" element={<MyList />} />
+            <Route path="/:id" element={<Info />} />
             <Route path="*" element={<NotFound404 />} />
           </Routes>
         </Suspense>
