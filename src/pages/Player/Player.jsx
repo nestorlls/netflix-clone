@@ -1,15 +1,11 @@
 import PlayerWrapper from './ui-Player';
 import video from '../../assets/video.mp4';
-import { BsArrowLeft } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import BackArrow from '../../components/BackArrow/BackArrow';
 
 const Player = () => {
-  const navigate = useNavigate();
   return (
     <PlayerWrapper>
-      <span className="back-icon flex a-center j-center">
-        <BsArrowLeft title="Back" onClick={() => navigate(-1)} />
-      </span>
+      <BackArrow />
       <video src={video} autoPlay loop muted />
     </PlayerWrapper>
   );
